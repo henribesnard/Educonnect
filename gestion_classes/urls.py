@@ -19,4 +19,14 @@ urlpatterns = [
     path('staff/classes/view/<int:pk>/', views.staff_view_class, name='staff_view_class'),
     path('staff/classes/edit/<int:pk>/', views.staff_edit_class, name='staff_edit_class'),
     path('staff/classes/delete/<int:pk>/', views.staff_delete_class, name='staff_delete_class'),
+
+    #URL pour gestion des cours HEAD et STAFF
+    path('staff/courses/', views.staff_courses_list, name='staff_courses_list'),
+    path('staff/courses/add/', views.staff_add_course, name='staff_add_course'),
+    path('staff/courses/edit/<int:pk>/', views.staff_edit_course, name='staff_edit_course'),
+    path('staff/courses/delete/<int:pk>/', views.staff_delete_course, name='staff_delete_course'),
+
+
+
+
 ]

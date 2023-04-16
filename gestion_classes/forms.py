@@ -1,5 +1,6 @@
 from django import forms
 from .models import Schoolclass, Course
+from django.contrib.auth import get_user_model
 
 class SchoolclassForm(forms.ModelForm):
     class Meta:
@@ -19,8 +20,20 @@ class StaffSchoolclassForm(forms.ModelForm):
         widgets = {
             'students': forms.CheckboxSelectMultiple(),
         }
-        
+
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ['name', 'schoolclass', 'subject', 'teachers', 'description']
+
+class StaffCourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['name', 'schoolclass', 'subject', 'teachers', 'description']
+
+    def __init__(self, *args, **kwargs):
+        establishment = kwargs.pop('establishment', None)
+        super().__init__(*args, **kwargs)
+        self.fields['schoolclass'].queryset = Schoolclass.objects.filter(establishment=establishment)
+        self.fields['teachers'].queryset = get_user_model().objects.filter(establishment=establishment, roles='TEACHER')
+

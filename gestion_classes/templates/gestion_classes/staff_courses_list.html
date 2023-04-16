@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Liste des cours</h2>
+    <a href="{% url 'staff_add_course' %}">Ajouter un cours</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Classe</th>
+                <th>Matière</th>
+                <th>Enseignants</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.schoolclass }}</td>
+                    <td>{{ course.get_subject_display }}</td>
+                    <td>
+                        {% for teacher in course.teachers.all %}
+                            {{ teacher.first_name }} {{ teacher.last_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{% url 'staff_edit_course' course.pk %}">Modifier</a> |
+                        <a href="{% url 'staff_delete_course' course.pk %}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

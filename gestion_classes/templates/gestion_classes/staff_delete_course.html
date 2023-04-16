@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Supprimer le cours : {{ course.name }}</h2>
+    <p>Êtes-vous sûr de vouloir supprimer ce cours ? Cette action est irréversible.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Supprimer</button>
+    </form>
+{% endblock %}
