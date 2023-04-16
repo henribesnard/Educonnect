@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Liste des établissements</h2>
+  <a href="{% url 'add_establishment' %}" class="btn btn-success">Ajouter un établissement</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Chef d'établissement</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for establishment in establishments %}
+        <tr>
+          <td>{{ establishment.name }}</td>
+          <td>{{ establishment.head.first_name }} {{ establishment.head.last_name }}</td>
+          <td>
+            <a href="{% url 'establishment_update' establishment.pk %}" class="btn btn-primary">Mettre à jour</a>
+            <a href="{% url 'establishment_delete' establishment.pk %}" class="btn btn-danger">Supprimer</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

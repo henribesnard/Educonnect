@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ schoolclass.name }}</h2>
+  <p>Niveau: {{ schoolclass.get_level_display }}</p>
+  <p>Enseignant principal: {{ schoolclass.principal_teacher }}</p>
+  <h3>Étudiants</h3>
+  <ul>
+    {% for student in schoolclass.students.all %}
+      <li>{{ student }}</li>
+    {% empty %}
+      <li>Aucun étudiant dans cette classe.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

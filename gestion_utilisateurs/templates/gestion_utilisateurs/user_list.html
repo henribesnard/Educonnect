@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Liste des utilisateurs</h2>
+  <a href="{% url 'user_create' %}" class="btn btn-primary">Ajouter un utilisateur</a>
+  <table>
+    ...
+    {% for user in users %}
+      <tr>
+        ...
+        <td><a href="{% url 'user_update' user.pk %}" class="btn btn-secondary">Modifier</a></td>
+        <td><a href="{% url 'user_delete' user.pk %}" class="btn btn-danger">Supprimer</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

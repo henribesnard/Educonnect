@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ enfant.first_name }} {{ enfant.last_name }}</h1>
+    <p>Email : {{ enfant.email }}</p>
+    <p>Date de naissance : {{ enfant.date_of_birth }}</p>
+    <p>Numéro de téléphone : {{ enfant.phone_number }}</p>
+    <p>Adresse : {{ enfant.address }}</p>
+
+    {% if modifiable %}
+    <a href="{% url 'modifier_profil_enfant' child_id=enfant.id %}" class="btn btn-secondary">Modifier le profil de l'enfant</a>
+    {% endif %}
+{% endblock %}
