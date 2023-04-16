@@ -24,5 +24,7 @@ urlpatterns = [
     path('', include('etablissements.urls')),
     path('', include('gestion_classes.urls')),
     path('', include('gestion_dashbord.urls')),
+    path('', include('gestion_emplois_temps.urls')),
+    path('', include('gestion_evenements.urls')),
     path('', views.home, name='home'),
 ]

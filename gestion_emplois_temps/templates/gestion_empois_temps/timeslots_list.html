@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Liste des emplois du temps</h2>
+  <a href="{% url 'add_timeslot' %}">Ajouter un emploi du temps</a>
+  <ul>
+    {% for timeslot in timeslots %}
+      <li>
+        {{ timeslot }}
+        <a href="{% url 'edit_timeslot' timeslot.pk %}">Modifier</a>
+        <a href="{% url 'delete_timeslot' timeslot.pk %}">Supprimer</a>
+      </li>
+    {% empty %}
+      <li>Aucun emploi du temps disponible.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

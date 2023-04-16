@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Supprimer l'emploi du temps</h2>
+  <p>Voulez-vous vraiment supprimer l'emploi du temps "{{ timeslot }}" ?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Oui, supprimer</button>
+  </form>
+  <a href="{% url 'timeslots_list' %}">Retour à la liste des emplois du temps</a>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Liste des événements</h2>
+  <a href="{% url 'add_event' %}">Ajouter un événement</a>
+  <ul>
+    {% for event in events %}
+      <li>
+        {{ event.title }} - {{ event.start_date|date:"d F Y H:i" }}{% if event.end_date %} - {{ event.end_date|date:"d F Y H:i" }}{% endif %}
+        <a href="{% url 'edit_event' event.pk %}">Modifier</a>
+        <a href="{% url 'delete_event' event.pk %}">Supprimer</a>
+        </li>
+        {% empty %}
+      <li>Aucun événement trouvé</li>
+    {% endfor %}
+        
+    </ul>
+        {% endblock %}

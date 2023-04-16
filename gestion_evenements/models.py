@@ -10,6 +10,10 @@ class Event(models.Model):
     end_date = models.DateTimeField('End date', blank=True, null=True)
     location = models.CharField('Location', max_length=255, blank=True, null=True)
     organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Organizer')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Date de création')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_events', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a créé')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='updated_events', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a mis à jour')
 
     class Meta:
         verbose_name = 'Event'

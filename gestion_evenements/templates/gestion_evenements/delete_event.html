@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Supprimer l'événement</h2>
+  <p>Voulez-vous supprimer l'événement "{{ event.title }}" ?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Supprimer</button>
+  </form>
+  <a href="{% url 'events_list' %}">Retour à la liste des événements</a>
+{% endblock %}
