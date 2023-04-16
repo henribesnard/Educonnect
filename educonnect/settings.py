@@ -46,10 +46,19 @@ INSTALLED_APPS = [
     'gestion_communications',
     'gestion_emplois_temps',
     'gestion_documents',
-    'gestion_evenements'
+    'gestion_evenements',
+    'gestion_dashbord'
     
 ]
 AUTH_USER_MODEL = 'gestion_utilisateurs.User'
+# Configure the session engine to use the database
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Set the session cookie age to 1 hour (3600 seconds)
+SESSION_COOKIE_AGE = 3600
+
+# Configure the session to expire when the user closes their browser
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Utiliser SMTP
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

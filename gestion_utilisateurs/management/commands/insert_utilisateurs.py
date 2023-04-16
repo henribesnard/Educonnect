@@ -8,11 +8,27 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Créez des objets Role si nécessaire
         admin_role, _ = Role.objects.get_or_create(name='ADMIN')
+        head_role, _ = Role.objects.get_or_create(name='HEAD')
+        staff_role, _ = Role.objects.get_or_create(name='STAFF')
+        parent_role, _ = Role.objects.get_or_create(name='PARENT')
+        etudiant_role, _ = Role.objects.get_or_create(name='STUDENT')
+        etablissement = Establishment.objects.first()
+        
 
         # Créez les objets Utilisateur
-        admin = User.objects.create_user(username='admin', email='admin@example.com', last_name='Admin', first_name='Admin', password='admin123', is_admin=True)
-        admin.roles.add(admin_role)
-        admin.save()
+        head = User.objects.create_user(username='head1', email='head1@example.com', last_name='head1', first_name='head1', password='head123', is_head=True)
+        head.roles.add(head_role)
+        head.establishment = etablissement
+        head.save()
+
+        staff = User.objects.create_user(username='staff1', email='staff1@example.com', last_name='staff1', first_name='staff1', password='staff123', is_staff=True)
+        staff.roles.add(staff_role)
+        staff.establishment = etablissement
+        staff.save()
+
+        parent = User.objects.create_user(username='parent5', email='parent5@example.com', last_name='parent5', first_name='parent5', password='parent123', is_parent=True)
+        parent.roles.add(parent_role)
+        parent.save()
 
 
         self.stdout.write(self.style.SUCCESS("Les utilisateurs de test ont été insérés avec succès."))

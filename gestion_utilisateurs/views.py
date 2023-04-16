@@ -9,7 +9,7 @@ from django.http import HttpResponseForbidden
 from django.utils import timezone
 from .models import User, Role
 from django.core.mail import send_mail
-from educonnect.permissions import admin_check, is_head_or_staff
+from educonnect.permissions import admin_check, head_or_staff_check
 
 
 def login_view(request):
@@ -18,18 +18,24 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            if user.is_admin:
+            
+            if user.roles.filter(name='ADMIN').exists():
                 return redirect('admin_dashboard')
+            elif user.roles.filter(name='HEAD').exists():
+                return redirect('head_dashboard')
+            elif user.roles.filter(name='STAFF').exists():
+                return redirect('staff_dashboard')
+            elif user.roles.filter(name='TEACHER').exists():
+                return redirect('teacher_dashboard')
+            elif user.roles.filter(name='PARENT').exists():
+                return redirect('parent_dashboard')
+            elif user.roles.filter(name='STUDENT').exists():
+                return redirect('student_dashboard')
             else:
                 return redirect('dashboard')
     else:
         form = LoginForm()
     return render(request, 'gestion_utilisateurs/login.html', {'form': form})
-
-@user_passes_test(admin_check, login_url='/login/')
-def admin_dashboard(request):
-    users = User.objects.exclude(is_admin=True)  # Exclure les utilisateurs admin de la liste
-    return render(request, 'gestion_utilisateurs/admin_dashboard.html', {'users': users})
 
 @login_required
 def logout_view(request):
@@ -103,7 +109,7 @@ def modifier_profil_enfant(request, child_id):
     else:
         return HttpResponseForbidden("Accès refusé.")
     
-@user_passes_test(is_head_or_staff, login_url='/login/')
+@user_passes_test(head_or_staff_check, login_url='/login/')
 def register_student(request):
     if request.method == 'POST':
         form = StudentRegistrationForm(request.POST)

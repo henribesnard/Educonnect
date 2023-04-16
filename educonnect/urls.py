@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('gestion_utilisateurs.urls')),
     path('', include('etablissements.urls')),
     path('', include('gestion_classes.urls')),
+    path('', include('gestion_dashbord.urls')),
     path('', views.home, name='home'),
 ]

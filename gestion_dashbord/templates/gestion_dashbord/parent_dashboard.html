@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Tableau de bord parent</h1>
+  <ul>
+    <li><a href="{% url 'user_list' %}" class="list-group-item list-group-item-action">Gestion des utilisateurs</a></li>
+    <li><a href="{% url 'role_list' %}" class="list-group-item list-group-item-action">Gestion des rôles</a></li>
+    <li><a href="{% url 'establishment_list' %}" class="list-group-item list-group-item-action">Gestion des établissements</a></li>
+    <li><a href="{% url 'establishment_type_list' %}" class="list-group-item list-group-item-action">Gestion des types établissements</a></li>
+    <li><a href="{% url 'classes_list' %}" class="list-group-item list-group-item-action">Gestion des classes</a></li>
+    <li><a href="{% url 'course_list' %}" class="list-group-item list-group-item-action">Gestion des cours</a></li>
+  </ul>
+
+  </table>
+{% endblock %}
