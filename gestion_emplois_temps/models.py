@@ -1,23 +1,29 @@
 from django.db import models
 from django.conf import settings
 from gestion_classes.models import Schoolclass, Course
+from etablissements.models import Establishment
 
+class Room(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField('Nom', max_length=100)
+    capacity = models.IntegerField('Capacité', blank=True, null=True)
+    description = models.TextField('Description', blank=True, null=True)
+    establishment = models.ForeignKey(Establishment, on_delete=models.CASCADE, verbose_name='Établissement')
+
+    class Meta:
+        verbose_name = 'Room'
+        verbose_name_plural = 'Rooms'
+
+    def __str__(self):
+        return self.name
 
 class Timeslot(models.Model):
     id = models.AutoField(primary_key=True)
     schoolclass = models.ForeignKey(Schoolclass, on_delete=models.CASCADE, verbose_name='schoolclass')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='subject', blank=True, null=True)
-    start_hour = models.TimeField('Heure de début')
-    end_hour = models.TimeField('Heure de fin')
-    DAY_CHOICES = [
-        ('LUNDI', 'Lundi'),
-        ('MARDI', 'Mardi'),
-        ('MERCREDI', 'Mercredi'),
-        ('JEUDI', 'Jeudi'),
-        ('VENDREDI', 'Vendredi'),
-        ('SAMEDI', 'Samedi'),
-    ]
-    day_of_week = models.CharField('Jour de la semaine', max_length=15, choices=DAY_CHOICES)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, verbose_name='room', blank=True, null=True)
+    start_datetime = models.DateTimeField('Date et heure de début')
+    end_datetime = models.DateTimeField('Date et heure de fin')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Date de création')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_timeslots', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a créé')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')
@@ -28,4 +34,8 @@ class Timeslot(models.Model):
         verbose_name_plural = 'Timeslots'
 
     def __str__(self):
-        return f"{self.schoolclass} -{self.course}- {self.day_of_week}-{self.start_hour} - {self.end_hour} "
+        return f"{self.schoolclass} - {self.course} - {self.room} - {self.start_datetime} - {self.end_datetime}"
+
+
+
+
