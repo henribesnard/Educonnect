@@ -6,6 +6,9 @@ def admin_check(user):
 def head_or_staff_check(user):
     return user.is_authenticated and (user.is_head or user.is_staff)
 
+def head_staff_teacher_check(user):
+    return user.is_authenticated and (user.is_head or user.is_staff or user.is_teacher)
+
 def head_check(user):
     return user.is_authenticated and user.is_head
 
