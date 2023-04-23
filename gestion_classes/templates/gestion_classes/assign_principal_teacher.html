@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Assigner un professeur principal à la classe : {{ class.name }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Assigner un professeur principal</button>
+  </form>
+{% endblock %}

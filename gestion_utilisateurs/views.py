@@ -75,7 +75,7 @@ def profil_enfant(request, child_id):
     parent = request.user
     enfant = get_object_or_404(User, id=child_id)
 
-    if parent.is_parent and enfant in parent.children.all():
+    if parent.roles.filter(name='PARENT').exists() and enfant in parent.children.all():
         age = (timezone.now().date() - enfant.date_of_birth).days // 365
         modifiable = age < 14
         return render(request, 'gestion_utilisateurs/profil_enfant.html', {'enfant': enfant, 'modifiable': modifiable})
@@ -87,7 +87,7 @@ def modifier_profil_enfant(request, child_id):
     parent = request.user
     enfant = get_object_or_404(User, id=child_id)
 
-    if parent.is_parent and enfant in parent.children.all():
+    if parent.roles.filter(name='PARENT').exists() and enfant in parent.children.all():
         age = (timezone.now().date() - enfant.date_of_birth).days // 365
         if age < 14:
             if request.method == "POST":
@@ -123,7 +123,6 @@ def register_student(request):
 
             student_role = Role.objects.get(name='STUDENT')
             student.roles.add(student_role)
-            student.is_student = True
             student.save()
 
             send_mail(
@@ -205,3 +204,14 @@ def role_delete(request, pk):
     role = get_object_or_404(Role, pk=pk)
     role.delete()
     return redirect('role_list')
+
+@user_passes_test(admin_check)
+def user_detail_view(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    return render(request, 'gestion_utilisateurs/user_detail.html', {'user': user})
+
+@user_passes_test(admin_check)
+def role_detail_view(request, pk):
+    role = get_object_or_404(Role, pk=pk)
+    return render(request, 'gestion_utilisateurs/role_detail.html', {'role': role})
+

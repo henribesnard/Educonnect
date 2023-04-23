@@ -1,9 +1,10 @@
+<!-- classes_list.html -->
 {% extends 'base.html' %}
 
 {% block content %}
   <h2>Liste des classes</h2>
   <a href="{% url 'add_class' %}" class="btn btn-primary">Ajouter une classe</a>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Nom</th>
@@ -11,17 +12,25 @@
       </tr>
     </thead>
     <tbody>
-      {% for classe in classes %}
+      {% for schoolclass in classes %}
         <tr>
-          <td>{{ classe.name }}</td>
           <td>
-            <a href="{% url 'update_class' %}" class="btn btn-secondary">Modifier</a> |
-            <a href="{% url 'delete_class' %}" class="btn btn-danger">Supprimer</a>
+            <a href="{% url 'class_detail' class_id=schoolclass.id %}">
+              {{ schoolclass.name }}
+            </a>
+          </td>
+          <td>
+            <a href="{% url 'edit_class' class_id=schoolclass.id %}" class="btn btn-primary">
+              Modifier
+            </a>
+            <a href="{% url 'delete_class' class_id=schoolclass.id %}" class="btn btn-danger">
+              Supprimer
+            </a>
           </td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="2">Aucune classe trouvé.</td>
+          <td colspan="2">Aucune classe disponible.</td>
         </tr>
       {% endfor %}
     </tbody>

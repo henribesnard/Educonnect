@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Détails du cours : {{ course.name }}</h1>
+    <p><strong>Classe :</strong> {{ course.schoolclass }}</p>
+    <p><strong>Matière :</strong> {{ course.get_subject_display }}</p>
+    <p><strong>Enseignants :</strong></p>
+    <ul>
+        {% for teacher in teachers %}
+            <li>{{ teacher.first_name }} {{ teacher.last_name }}</li>
+        {% empty %}
+            <li>Aucun enseignant assigné</li>
+        {% endfor %}
+    </ul>
+    <p><strong>Description :</strong></p>
+    {% if course.description %}
+        <p>{{ course.description }}</p>
+    {% else %}
+        <p>Aucune description</p>
+    {% endif %}
+{% endblock %}

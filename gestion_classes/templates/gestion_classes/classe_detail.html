@@ -1,0 +1,18 @@
+<!-- class_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ schoolclass.name }}</h2>
+  <p>Établissement : {{ schoolclass.establishment.name }}</p>
+  <p>Professeur principal : {{ schoolclass.principal_teacher.first_name }} {{ schoolclass.principal_teacher.last_name }}</p>
+  <p>Niveau : {{ schoolclass.level }}</p>
+
+  <h3>Étudiants</h3>
+  <ul>
+  {% for student in students %}
+    <li>{{ student.first_name }} {{ student.last_name }}</li>
+  {% empty %}
+    <li>Aucun étudiant dans cette classe.</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

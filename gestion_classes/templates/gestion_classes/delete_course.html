@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-  <h2>Supprimer le cours {{ course.name }}</h2>
-  <p>Êtes-vous sûr de vouloir supprimer ce cours ?</p>
+  <h2>Supprimer le cours</h2>
+  <p>Êtes-vous sûr de vouloir supprimer le cours "{{ course.name }}" ?</p>
   <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Supprimer</button>
-    <a href="{% url 'course_list' %}" class="btn btn-secondary">Annuler</a>
-  </form>
+    <a href="{% url 'courses_list' %}" class="btn btn-secondary">Annuler</a>
+</form>
 {% endblock %}

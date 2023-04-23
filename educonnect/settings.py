@@ -14,8 +14,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -47,7 +46,9 @@ INSTALLED_APPS = [
     'gestion_emplois_temps',
     'gestion_documents',
     'gestion_evenements',
-    'gestion_dashbord'
+    'gestion_dashbord',
+    'bootstrap5',
+    'widget_tweaks',
     
 ]
 AUTH_USER_MODEL = 'gestion_utilisateurs.User'
@@ -65,9 +66,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'your-smtp-server.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your-email@example.com'
-EMAIL_HOST_PASSWORD = 'your-email-password'
+EMAIL_HOST_USER = 'besnard.hounwanou@gmail.com'
+EMAIL_HOST_PASSWORD = 'williammarrion'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Ou utiliser un service d'e-mails tiers comme SendGrid
 # EMAIL_BACKEND = 'django_sendgrid_backend.backends.SendgridBackend'
 # SENDGRID_API_KEY = 'your-sendgrid-api-key'
@@ -109,7 +111,7 @@ WSGI_APPLICATION = 'educonnect.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -149,6 +151,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

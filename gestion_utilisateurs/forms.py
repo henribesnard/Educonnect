@@ -61,27 +61,20 @@ class StudentRegistrationForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
+class CustomUserForm(forms.ModelForm):
 
-class CustomUserForm(UserCreationForm):
-
-    roles = forms.ModelChoiceField(
+    roles = forms.ModelMultipleChoiceField(
         queryset=Role.objects.all(),
-        widget=forms.Select,
+        widget=forms.CheckboxSelectMultiple,
         required=True,
     )
 
     class Meta:
         model = User
         fields = [
-            'last_name', 'first_name', 'email',
-            'address', 'date_of_birth', 'phone_number', 'roles', 'establishment',
-            'is_student', 'is_teacher', 'is_admin', 'is_head', 'is_staff', 'is_parent', 'is_active'
+            'last_name', 'first_name', 'email', 'address', 'date_of_birth', 
+            'phone_number', 'roles', 'establishment'
         ]
-
-    def __init__(self, *args, **kwargs):
-        super(CustomUserForm, self).__init__(*args, **kwargs)
-        del self.fields['password1']
-        del self.fields['password2']
 
     def save(self, commit=True):
         user = super().save(commit=False)

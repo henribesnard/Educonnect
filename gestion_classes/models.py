@@ -28,8 +28,8 @@ class Schoolclass(models.Model):
 
     name = models.CharField(max_length=255)
     establishment = models.ForeignKey(Establishment, on_delete=models.CASCADE)
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, limit_choices_to={'roles__name': 'Student'}, related_name='classes')
-    principal_teacher = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, limit_choices_to={'roles__name': 'Teacher'}, on_delete=models.SET_NULL, related_name='teacher_classes')
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, limit_choices_to={'roles__name': 'Student'}, related_name='student_classes')
+    principal_teacher = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, limit_choices_to={'roles__name': 'TEACHER'}, on_delete=models.SET_NULL, related_name='principal_teacher_classes')
     level = models.CharField(max_length=8, choices=LEVELS)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Date de création')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_classes', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a créé')
@@ -57,8 +57,12 @@ class Course(models.Model):
     name = models.CharField(max_length=100)
     schoolclass = models.ForeignKey(Schoolclass, on_delete=models.CASCADE)
     subject = models.CharField(max_length=4, choices=SUBJECTS)
-    teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, limit_choices_to={'roles__name': 'Teacher'})
+    teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, limit_choices_to={'roles__name': 'Teacher'}, blank=True)
     description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Date de création')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_courses', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a créé')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='updated_courses', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a mis à jour')
 
     class Meta:
         verbose_name = 'course'

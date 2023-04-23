@@ -3,14 +3,22 @@
 {% block content %}
   <h2>Liste des utilisateurs</h2>
   <a href="{% url 'user_create' %}" class="btn btn-primary">Ajouter un utilisateur</a>
-  <table>
-    
-    {% for user in users %}
+  <table class="table">
+    <thead>
       <tr>
-        <td>{{ user.first_name }} {{user.last_name}}</td>
-        <td><a href="{% url 'user_update' user.pk %}" class="btn btn-secondary">Modifier</a></td>
-        <td><a href="{% url 'user_delete' user.pk %}" class="btn btn-danger">Supprimer</a></td>
+        <th scope="col">Nom et prénom</th>
+        <th scope="col">Modifier</th>
+        <th scope="col">Supprimer</th>
       </tr>
-    {% endfor %}
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td><a href="{% url 'user_detail' user.pk %}">{{ user.first_name }} {{ user.last_name }}</a></td>
+          <td><a href="{% url 'user_update' user.pk %}" class="btn btn-secondary">Modifier</a></td>
+          <td><a href="{% url 'user_delete' user.pk %}" class="btn btn-danger">Supprimer</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
   </table>
 {% endblock %}

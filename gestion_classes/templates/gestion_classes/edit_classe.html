@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Ajouter une classe</h2>
+  <h2>Modifier la classe</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <button type="submit"class="btn btn-primary" >Modifier la classe</button>
   </form>
 {% endblock %}

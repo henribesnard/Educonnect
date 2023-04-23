@@ -2,24 +2,21 @@
 
 {% block content %}
   <h2>Liste des établissements</h2>
-  <a href="{% url 'add_establishment' %}" class="btn btn-success">Ajouter un établissement</a>
-  <table>
+  <a href="{% url 'add_establishment' %}" class="btn btn-primary">Ajouter un établissement</a>
+  <table class="table">
     <thead>
       <tr>
-        <th>Nom</th>
-        <th>Chef d'établissement</th>
-        <th>Actions</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Modifier</th>
+        <th scope="col">Supprimer</th>
       </tr>
     </thead>
     <tbody>
       {% for establishment in establishments %}
         <tr>
-          <td>{{ establishment.name }}</td>
-          <td>{{ establishment.head.first_name }} {{ establishment.head.last_name }}</td>
-          <td>
-            <a href="{% url 'establishment_update' establishment.pk %}" class="btn btn-primary">Mettre à jour</a>
-            <a href="{% url 'establishment_delete' establishment.pk %}" class="btn btn-danger">Supprimer</a>
-          </td>
+          <td><a href="{% url 'establishment_detail' establishment.pk %}">{{ establishment.name }}</a></td>
+          <td><a href="{% url 'establishment_update' establishment.pk %}" class="btn btn-secondary">Modifier</a></td>
+          <td><a href="{% url 'establishment_delete' establishment.pk %}" class="btn btn-danger">Supprimer</a></td>
         </tr>
       {% endfor %}
     </tbody>

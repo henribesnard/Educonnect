@@ -1,175 +1,146 @@
-from django.shortcuts import render,redirect, get_object_or_404
-from django.http import Http404
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Schoolclass, Course
+from .forms import AddClassForm, AssignPrincipalTeacherForm, EditClassForm, CourseForm,EditCourseForm
+from django.contrib import messages
+from educonnect.permissions import admin_check
 from django.contrib.auth.decorators import login_required, user_passes_test
-from educonnect.permissions import admin_check, head_or_staff_check
-from .models import Schoolclass
-from .forms import SchoolclassForm, StaffSchoolclassForm, CourseForm, StaffCourseForm
-
-# vues pour les classes accessibles aux ADMIN
-@user_passes_test(admin_check, login_url='/login/')
-def list_classes(request):
-    classes = Schoolclass.objects.all()
-    context = {'classes': classes}
-    return render(request, 'gestion_classes/classes_list.html', context)
 
 @user_passes_test(admin_check, login_url='/login/')
 def add_class(request):
-    if request.method == 'POST':
-        form = SchoolclassForm(request.POST)
+    if request.method == "POST":
+        form = AddClassForm(request.POST)
         if form.is_valid():
-            new_class = form.save(commit=False)
-            new_class.created_by = request.user
-            new_class.save()
+            new_class = form.save()
+            return redirect('ask_assign_teacher', class_id=new_class.id)
+    else:
+        form = AddClassForm()
+
+    return render(request, 'gestion_classes/add_classe.html', {'form': form})
+
+@user_passes_test(admin_check, login_url='/login/')
+def ask_assign_teacher(request, class_id):
+    schoolclass = get_object_or_404(Schoolclass, id=class_id)
+    if request.method == "POST":
+        if "yes" in request.POST:
+            return redirect('assign_principal_teacher', class_id=class_id)
+        elif "no" in request.POST:
+            return redirect('classes_list')
+
+    return render(request, 'gestion_classes/ask_assign_teacher.html', {'schoolclass': schoolclass})
+
+@user_passes_test(admin_check, login_url='/login/')
+def assign_principal_teacher(request, class_id):
+    schoolclass = get_object_or_404(Schoolclass, id=class_id)
+    if request.method == "POST":
+        form = AssignPrincipalTeacherForm(request.POST, schoolclass=schoolclass)
+        if form.is_valid():
+            teacher = form.cleaned_data['principal_teacher']
+            schoolclass.principal_teacher = teacher
+            schoolclass.save()
             return redirect('classes_list')
     else:
-        form = SchoolclassForm()
+        form = AssignPrincipalTeacherForm(schoolclass=schoolclass)
 
-    context = {'form': form}
-    return render(request, 'gestion_classes/add_class.html', context)
+    return render(request, 'gestion_classes/assign_principal_teacher.html', {'form': form, 'schoolclass': schoolclass})
 
 @user_passes_test(admin_check, login_url='/login/')
-def update_class(request, pk):
-    schoolclass = get_object_or_404(Schoolclass, pk=pk)
+def classes_list(request):
+    classes = Schoolclass.objects.all()
+    return render(request, 'gestion_classes/classes_list.html', {'classes': classes})
+
+@user_passes_test(admin_check, login_url='/login/')
+def edit_class(request, class_id):
+    schoolclass = get_object_or_404(Schoolclass, pk=class_id)
     if request.method == 'POST':
-        form = SchoolclassForm(request.POST, instance=schoolclass)
+        form = EditClassForm(request.POST, instance=schoolclass, schoolclass=schoolclass)
         if form.is_valid():
             form.save()
-            return redirect('classes_list')  # Redirigez vers la vue appropriée après la mise à jour
+            messages.success(request, 'La classe a été modifiée avec succès.')
+            return redirect('classes_list')
     else:
-        form = SchoolclassForm(instance=schoolclass)
-    return render(request, 'gestion_classes/update_class.html', {'form': form})
+        form = EditClassForm(instance=schoolclass, schoolclass=schoolclass)
+    return render(request, 'gestion_classes/edit_classe.html', {'form': form})
 
 @user_passes_test(admin_check, login_url='/login/')
-def delete_class(request, pk):
-    schoolclass = get_object_or_404(Schoolclass, pk=pk)
+def delete_class(request, class_id):
+    schoolclass = get_object_or_404(Schoolclass, pk=class_id)
     if request.method == 'POST':
         schoolclass.delete()
-        return redirect('classes_list')  # Redirigez vers la vue appropriée après la suppression
-    return render(request, 'gestion_classes/delete_class.html', {'schoolclass': schoolclass})
-
-# vues pour les classes accessibles au HEAD et STAFF
-
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_add_class(request):
-    user = request.user
-    if request.method == 'POST':
-        form = SchoolclassForm(user=request.user)
-        if form.is_valid():
-            schoolclass = form.save(commit=False)
-            schoolclass.establishment = user.establishment
-            schoolclass.save()
-            return redirect('staff_classes_list')
-    else:
-        form = StaffSchoolclassForm()
-    return render(request, 'gestion_classes/staff_add_class.html', {'form': form}) 
-
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_view_class(request, pk):
-    user = request.user
-    try:
-        schoolclass = Schoolclass.objects.get(pk=pk, establishment=user.establishment)
-    except Schoolclass.DoesNotExist:
-        raise Http404("La classe n'existe pas ou vous n'avez pas la permission de la voir.")
-    return render(request, 'gestion_classes/staff_view_class.html', {'schoolclass': schoolclass})
-
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_edit_class(request, pk):
-    user = request.user
-    schoolclass = get_object_or_404(Schoolclass, pk=pk, establishment=user.establishment)
-    if request.method == 'POST':
-        form = StaffSchoolclassForm(instance=schoolclass, user=request.user)
-        if form.is_valid():
-            form.save()
-            return redirect('staff_classes_list')
-    else:
-        form = StaffSchoolclassForm(instance=schoolclass)
-    return render(request, 'gestion_classes/staff_edit_class.html', {'form': form})
-
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_delete_class(request, pk):
-    user = request.user
-    schoolclass = get_object_or_404(Schoolclass, pk=pk, establishment=user.establishment)
-    if request.method == 'POST':
-        schoolclass.delete()
-        return redirect('staff_classes_list')
-    return render(request, 'gestion_classes/staff_delete_class.html', {'schoolclass': schoolclass})
-
-#vues pour les cours accessibles aux admins
-@user_passes_test(admin_check, login_url='/login/')
-def course_list(request):
-    courses = Course.objects.all()
-    return render(request, 'gestion_classes/course_list.html', {'courses': courses})
+        messages.success(request, 'La classe a été supprimée avec succès.')
+        return redirect('classes_list')
+    return render(request, 'gestion_classes/delete_classe.html', {'schoolclass': schoolclass})
 
 @user_passes_test(admin_check, login_url='/login/')
-def add_course(request):
+def class_detail(request, class_id):
+    schoolclass = get_object_or_404(Schoolclass, pk=class_id)
+    students = schoolclass.students.all()
+    context = {
+        'schoolclass': schoolclass,
+        'students': students,
+    }
+    return render(request, 'gestion_classes/classe_detail.html', context)
+
+@user_passes_test(admin_check, login_url='/login/')
+def create_course(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('course_list')
+            course = form.save()
+            messages.success(request, 'Cours créé avec succès.')
+            return redirect('courses_list')
     else:
         form = CourseForm()
     return render(request, 'gestion_classes/add_course.html', {'form': form})
 
 @user_passes_test(admin_check, login_url='/login/')
-def edit_course(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
-        form = CourseForm(request.POST, instance=course)
-        if form.is_valid():
-            form.save()
-            return redirect('course_list')
-    else:
-        form = CourseForm(instance=course)
-    return render(request, 'gestion_classes/edit_course.html', {'form': form})
-
-@user_passes_test(admin_check, login_url='/login/')
-def delete_course(request, pk):
-    course = get_object_or_404(Course, pk=pk)
+def delete_course(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
     if request.method == 'POST':
         course.delete()
-        return redirect('course_list')
+        messages.success(request, 'Cours supprimé avec succès.')
+        return redirect('courses_list')
     return render(request, 'gestion_classes/delete_course.html', {'course': course})
 
-#Vues pour la gestion cours par les STAFF et HEAD
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_courses_list(request):
-    user = request.user
-    courses = Course.objects.filter(schoolclass__establishment=user.establishment)
-    return render(request, 'gestion_classes/staff_courses_list.html', {'courses': courses})
+@user_passes_test(admin_check, login_url='/login/')
+def courses_list(request):
+    courses = Course.objects.all()
+    return render(request, 'gestion_classes/courses_list.html', {'courses': courses})
 
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_add_course(request):
-    user = request.user
+@user_passes_test(admin_check, login_url='/login/')
+def edit_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    schoolclass = course.schoolclass
+
     if request.method == 'POST':
-        form = StaffCourseForm(request.POST, establishment=user.establishment)
+        form = EditCourseForm(request.POST, instance=course, course=course)
+
         if form.is_valid():
             form.save()
-            return redirect('staff_courses_list')
+            course.teachers.set(form.cleaned_data['teachers'])
+            course.save()
+            messages.success(request, 'Le cours a été modifié avec succès.')
+            return redirect('courses_list')
+
     else:
-        form = StaffCourseForm(establishment=user.establishment)
-    return render(request, 'gestion_classes/staff_add_course.html', {'form': form})
+        form = EditCourseForm(instance=course, course=course)
+        form.fields['teachers'].initial = course.teachers.all()
 
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_edit_course(request, pk):
-    user = request.user
-    course = get_object_or_404(Course, pk=pk, schoolclass__establishment=user.establishment)
-    if request.method == 'POST':
-        form = StaffCourseForm(request.POST, instance=course, establishment=user.establishment)
-        if form.is_valid():
-            form.save()
-            return redirect('staff_courses_list')
-    else:
-        form = StaffCourseForm(instance=course, establishment=user.establishment)
-    return render(request, 'gestion_classes/staff_edit_course.html', {'form': form})
+    context = {
+        'form': form,
+        'course': course,
+        'schoolclass': schoolclass,
+    }
 
-@user_passes_test(head_or_staff_check, login_url='/login/')
-def staff_delete_course(request, pk):
-    user = request.user
-    course = get_object_or_404(Course, pk=pk, schoolclass__establishment=user.establishment)
-    if request.method == 'POST':
-        course.delete()
-        return redirect('staff_courses_list')
-    return render(request, 'gestion_classes/staff_delete_course.html', {'course': course})
+    return render(request, 'gestion_classes/edit_course.html', context)
 
+@user_passes_test(admin_check, login_url='/login/')
+def course_detail(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    teachers = course.teachers.all()
+
+    context = {
+        'course': course,
+        'teachers': teachers,
+    }
+
+    return render(request, 'gestion_classes/course_detail.html', context)

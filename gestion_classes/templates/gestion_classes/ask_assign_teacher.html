@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Voulez-vous assigner un professeur principal à la classe {{ schoolclass.name }} ?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" name="yes">Oui</button>
+    <button type="submit" name="no">Non</button>
+  </form>
+{% endblock %}

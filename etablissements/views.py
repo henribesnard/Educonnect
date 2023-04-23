@@ -5,15 +5,17 @@ from .forms import EstablishmentForm, EstablishmentTypeForm
 from .models import Establishment, EstablishmentType
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.urls import reverse_lazy
+from educonnect.permissions import admin_check
 
-def is_admin(user):
-    return user.is_admin
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def add_establishment(request):
     if request.method == 'POST':
         form = EstablishmentForm(request.POST)
+        print("Before is_valid:", form['head'].value())  # Debug print statement
+
         if form.is_valid():
+            print("After is_valid:", form.cleaned_data['head'])  # Debug print statement
             establishment = form.save(commit=False)
             establishment.created_by = request.user
             establishment.updated_by = request.user
@@ -27,17 +29,19 @@ def add_establishment(request):
                 [head.email],
                 fail_silently=False,
             )
-            return redirect('dashboard')
+            return redirect('establishment_list')
+        else:
+            print("Form errors:", form.errors)  # Debug print statement
     else:
         form = EstablishmentForm()
     return render(request, 'etablissements/add_establishment.html', {'form': form})
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def establishment_list(request):
     establishments = Establishment.objects.all()
     return render(request, 'etablissements/establishment_list.html', {'establishments': establishments})
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def establishment_update(request, establishment_id):
     establishment = get_object_or_404(Establishment, pk=establishment_id)
     if request.method == 'POST':
@@ -52,7 +56,7 @@ def establishment_update(request, establishment_id):
         form = EstablishmentForm(instance=establishment)
     return render(request, 'etablissements/establishment_update.html', {'form': form, 'establishment': establishment})
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def establishment_delete(request, establishment_id):
     establishment = get_object_or_404(Establishment, pk=establishment_id)
     if request.method == 'POST':
@@ -60,7 +64,7 @@ def establishment_delete(request, establishment_id):
         return redirect('establishment_list')
     return render(request, 'etablissements/establishment_delete.html', {'establishment': establishment})
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def EstablishmentTypeCreateView(request):
     if request.method == 'POST':
         form = EstablishmentTypeForm(request.POST)
@@ -71,7 +75,7 @@ def EstablishmentTypeCreateView(request):
         form = EstablishmentTypeForm()
     return render(request, 'etablissements/establishment_type_form.html', {'form': form})
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def EstablishmentTypeUpdateView(request, pk):
     establishmentType = get_object_or_404(EstablishmentType, pk=pk)
     if request.method == 'POST':
@@ -83,14 +87,26 @@ def EstablishmentTypeUpdateView(request, pk):
         form = EstablishmentTypeForm(instance=establishmentType)
     return render(request, 'etablissements/establishment_type_form.html', {'form': form})
 
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def EstablishmentTypeDeleteView(request, pk):
     establishmentType = get_object_or_404(EstablishmentType, pk=pk)
     establishmentType.delete()
     return redirect('establishment_type_list')
     
     
-@user_passes_test(is_admin, login_url='/login/')
+@user_passes_test(admin_check, login_url='/login/')
 def EstablishmentTypeListView(request):
     establishmentTypes = EstablishmentType.objects.all()
     return render(request, 'etablissements/establishment_type_list.html', {'establishmentTypes': establishmentTypes})
+
+@user_passes_test(admin_check, login_url='/login/')
+def EstablishmentDetailView(request, pk):
+    establishment = get_object_or_404(Establishment, pk=pk)
+    return render(request, 'etablissements/establishment_detail.html', {'establishment': establishment})
+
+@user_passes_test(admin_check, login_url='/login/')
+def EstablishmentTypeDetailView(request, pk):
+    establishmentType = get_object_or_404(EstablishmentType, pk=pk)
+    return render(request, 'etablissements/establishment_type_detail.html', {'establishmentType': establishmentType})
+                
+                  

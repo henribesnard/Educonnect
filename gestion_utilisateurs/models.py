@@ -37,7 +37,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(_('Date of birth'), null=True, blank=True)
     phone_number = models.CharField(_('Phone number'), max_length=20, blank=True, null=True)
     roles = models.ManyToManyField(Role, verbose_name='Roles', blank=True)
-    establishment = models.ForeignKey(Establishment, on_delete=models.SET_NULL, verbose_name='Establishment', null=True)
+    establishment = models.ForeignKey(Establishment, on_delete=models.SET_NULL, verbose_name='Establishment', blank=True, null=True)
     children = models.ManyToManyField('self', verbose_name='Children', blank=True, symmetrical=False)
     is_principal_teacher = models.BooleanField(_('Principal Teacher'), default=False)
     position = models.CharField(_('Position'), max_length=200, blank=True, null=True)
@@ -48,12 +48,6 @@ class User(AbstractUser):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')
     updated_by = models.ForeignKey('self', related_name='updated_users', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a mis à jour')
 
-    is_student = models.BooleanField(default=False)
-    is_teacher = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
-    is_head = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_parent = models.BooleanField(default=False)
     is_active = models.BooleanField(_('Active'), default=True)
 
     @staticmethod

@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ establishmentType.name }}</h2>
+  <p>Type d'établissement : {{ establishmentType.name }}</p>
+  <a href="{% url 'establishment_type_list' %}" class="btn btn-primary">Retour à la liste des types d'établissements</a>
+{% endblock %}

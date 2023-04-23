@@ -36,7 +36,7 @@ class Establishment(models.Model):
     types = models.ManyToManyField(EstablishmentType, verbose_name='Types')
     category = models.CharField('Category', max_length=50, choices=CATEGORIES)
     phone_number = models.CharField('Phone number', max_length=15, blank=True, null=True)
-    head = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, limit_choices_to={'roles__name': 'Head of Establishment'}, on_delete=models.SET_NULL, related_name='headed_establishments')
+    head = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, limit_choices_to={'roles__name__icontains': 'HEAD'}, on_delete=models.SET_NULL, related_name='headed_establishments')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Date de création')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='created_Establishments', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a créé')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')

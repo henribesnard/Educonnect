@@ -1,30 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Liste des types d'établissement</h2>
-
+  <h2>Liste des types établissements</h2>
+  <a href="{% url 'establishment_type_add' %}" class="btn btn-primary">Ajouter un type d'établissement</a>
   <table class="table">
     <thead>
       <tr>
-        <th>Nom</th>
-        <th>Actions</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Modifier</th>
+        <th scope="col">Supprimer</th>
       </tr>
     </thead>
     <tbody>
-      {% for etype in establishmentTypes %}
+      {% for establishmentType in establishmentTypes %}
         <tr>
-          <td>{{ etype.name }}</td>
-          <td>
-            <a href="{% url 'establishment_type_edit' etype.pk %}" class="btn btn-primary">Modifier</a>
-            <a href="{% url 'establishment_type_delete' etype.pk %}" class="btn btn-danger">Supprimer</a>
-          </td>
-        </tr>
-      {% empty %}
-        <tr>
-          <td colspan="2">Aucun type d'établissement trouvé.</td>
+          <td><a href="{% url 'establishment_type_detail' establishmentType.pk %}">{{ establishmentType.name }}</a></td>
+          <td><a href="{% url 'establishment_type_update' establishmentType.pk %}" class="btn btn-secondary">Modifier</a></td>
+          <td><a href="{% url 'establishment_type_delete' establishmentType.pk %}" class="btn btn-danger">Supprimer</a></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-  <a href="{% url 'establishment_type_add' %}" class="btn btn-success">Ajouter un type d'établissement</a>
 {% endblock %}
