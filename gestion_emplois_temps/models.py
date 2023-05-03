@@ -32,15 +32,16 @@ class Timeslot(models.Model):
     class Meta:
         verbose_name = 'Timeslot'
         verbose_name_plural = 'Timeslots'
+        unique_together = ('room', 'start_datetime', 'end_datetime')
     
     def has_overlapping(self):
-        overlapping_timeslots = Timeslot.objects.filter(
-            course=self.course,
-            start_datetime__lt=self.end_datetime,
-            end_datetime__gt=self.start_datetime,
+      overlapping_timeslots = Timeslot.objects.filter(
+        models.Q(course=self.course) | models.Q(room=self.room),
+        start_datetime__lt=self.end_datetime,
+        end_datetime__gt=self.start_datetime,
         ).exclude(pk=self.pk)
-        
-        return overlapping_timeslots.exists()
+    
+      return overlapping_timeslots.exists()
 
     def __str__(self):
         return f"{self.schoolclass} - {self.course} - {self.room} - {self.start_datetime} - {self.end_datetime}"

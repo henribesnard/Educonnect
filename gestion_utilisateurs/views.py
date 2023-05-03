@@ -1,6 +1,7 @@
 import datetime
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.forms import modelform_factory
 from django.shortcuts import render, redirect
 from .forms import UserProfileForm, ModifierProfilEnfantForm, LoginForm, StudentRegistrationForm, CustomUserForm, CustomUserUpdateForm, RoleForm
 from django.contrib import messages
@@ -10,29 +11,18 @@ from django.utils import timezone
 from .models import User, Role
 from django.core.mail import send_mail
 from educonnect.permissions import admin_check, head_or_staff_check
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
 
-
+# Vue de connexion
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            
-            if user.roles.filter(name='ADMIN').exists():
-                return redirect('admin_dashboard')
-            elif user.roles.filter(name='HEAD').exists():
-                return redirect('head_dashboard')
-            elif user.roles.filter(name='STAFF').exists():
-                return redirect('staff_dashboard')
-            elif user.roles.filter(name='TEACHER').exists():
-                return redirect('teacher_dashboard')
-            elif user.roles.filter(name='PARENT').exists():
-                return redirect('parent_dashboard')
-            elif user.roles.filter(name='STUDENT').exists():
-                return redirect('student_dashboard')
-            else:
-                return redirect('dashboard')
+            return redirect('dashboard')
     else:
         form = LoginForm()
     return render(request, 'gestion_utilisateurs/login.html', {'form': form})
@@ -41,10 +31,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
-
-@login_required
-def dashboard(request):
-    return render(request, 'gestion_utilisateurs/dashboard.html')
 
 @login_required
 def edit_profile(request):
@@ -215,3 +201,28 @@ def role_detail_view(request, pk):
     role = get_object_or_404(Role, pk=pk)
     return render(request, 'gestion_utilisateurs/role_detail.html', {'role': role})
 
+class UserProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'gestion_utilisateurs/user_profile_form.html'
+    success_url = reverse_lazy('user_profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_class(self):
+        user = self.request.user
+        if user.roles.filter(name__in=['TEACHER', 'PARENT', 'STUDENT']).exists():
+            fields = [
+                'username', 'email', 'password', 'address', 'phone_number', 'position', 'profile_picture'
+            ]
+        else:
+            fields = [
+                'username', 'email', 'password', 'last_name', 'first_name', 'date_of_birth', 'address',
+                'phone_number', 'establishment', 'children', 'is_active', 'position', 'profile_picture'
+            ]
+
+        return modelform_factory(User, fields=fields)
+
+    def form_valid(self, form):
+        form.instance.updated_by = self.request.user
+        return super().form_valid(form)

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+      <h3>Account Details</h3>
+
+      <div class="account-details-form">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row g-5">
+            {% with user_roles=request.user.roles.all %}
+              {% if 'TEACHER' not in user_roles and 'PARENT' not in user_roles and 'STUDENT' not in user_roles %}
+                <div class="col-lg-6 col-12">
+                  {{ form.first_name.label_tag }} {{ form.first_name }}
+                </div>
+                <div class="col-lg-6 col-12">
+                  {{ form.last_name.label_tag }} {{ form.last_name }}
+                </div>
+                <div class="col-12">
+                  {{ form.date_of_birth.label_tag }} {{ form.date_of_birth }}
+                </div>
+                <div class="col-12">
+                  {{ form.establishment.label_tag }} {{ form.establishment }}
+                </div>
+                <div class="col-12">
+                  {{ form.is_active.label_tag }} {{ form.is_active }}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <div class="col-12">
+              {{ form.username.label_tag }} {{ form.username }}
+            </div>
+
+            <div class="col-12">
+              {{ form.email.label_tag }} {{ form.email }}
+            </div>
+
+            <div class="col-12">
+              {{ form.address.label_tag }} {{ form.address }}
+            </div>
+
+            <div class="col-12">
+              {{ form.phone_number.label_tag }} {{ form.phone_number }}
+            </div>
+
+            <div class="col-12">
+              {{ form.position.label_tag }} {{ form.position }}
+            </div>
+
+            <div class="col-12">
+              {{ form.profile_picture.label_tag }} {{ form.profile_picture }}
+            </div>
+
+            {% if 'PARENT' in user_roles %}
+              <div class="col-12">
+                {{ form.children.label_tag }} {{ form.children }}
+              </div>
+            {% endif %}
+
+            <div class="col-12">
+              <h4>Password change</h4>
+            </div>
+
+            <div class="col-12">
+              {{ form.password.label_tag }} {{ form.password }}
+            </div>
+
+            <div class="col-lg-6 col-12">
+              {{ form.new_password1.label_tag }} {{ form.new_password1 }}
+            </div>
+
+            <div class="col-lg-6 col-12">
+              {{ form.new_password2.label_tag }} {{ form.new_password2 }}
+            </div>
+
+            <div class="col-12">
+              <button type="submit" class="rbt-btn btn-gradient icon-hover">
+                <span class="btn-text">Save Changes</span>
+                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+{% endblock %}

@@ -47,7 +47,7 @@ class User(AbstractUser):
     created_by = models.ForeignKey('self', related_name='created_users', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a créé')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Date de mise à jour')
     updated_by = models.ForeignKey('self', related_name='updated_users', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Utilisateur qui a mis à jour')
-
+    profile_picture = models.ImageField(_('Profile picture'), upload_to='profile_pictures/', blank=True, null=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     @staticmethod
