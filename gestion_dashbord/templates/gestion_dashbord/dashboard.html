@@ -261,12 +261,18 @@
                                     <!-- My Account Tab Menu Start -->
                                     <div class="col-lg-3 col-12">
                                         <div class="rbt-my-account-tab-button nav" role="tablist">
-                                            <a href="#profil" data-bs-toggle="tab" class="active" >Mon profil</a>
-                                            <a href="#utilisateur" data-bs-toggle="tab">Enseignant/Etudiant</a>
+                                            <a href="#etablissement" data-bs-toggle="tab" class="active">Mon établissement</a>
+                                            <a href="#utilisateur" data-bs-toggle="tab">Gestion des Utilisateurs</a>
                                             <a href="#inscription" data-bs-toggle="tab">Inscription/Pré-inscription</a>
                                             <a href="#classe" data-bs-toggle="tab">Gestion des classes</a>
                                             <a href="#cours" data-bs-toggle="tab">Gestion des cours</a>
-                                            <a href="#communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#temps" data-bs-toggle="tab">Gestion des temps</a>
+                                            <a href="#evaluation" data-bs-toggle="tab">Gestion des évaluations</a>
+                                            <a href="#evenement" data-bs-toggle="tab">Gestion des evènements</a>
+                                            <a href="#documentaire" data-bs-toggle="tab">Espace documentaire</a>
+                                            <a href="#Communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#finance" data-bs-toggle="tab">Gestion financière</a>
+                                            <a href="#profil" data-bs-toggle="tab"  >Mon profil</a>
                                             <a href="{% url 'logout' %}">Logout</a>
                                         </div>
                                     </div>
@@ -276,7 +282,7 @@
                                     <div class="col-lg-9 col-12">
                                         <div class="tab-content" id="myaccountContent">
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade active show" id="profil" role="tabpanel">
+                                            <div class="tab-pane fade " id="profil" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
                                                     <h3>Account Details</h3>
                 
@@ -328,6 +334,24 @@
                                                 </div>
                                             </div>
                                             <!-- Single Tab Content End -->
+                                        <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade active show" id="etablissement" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
                 
                                             <!-- Single Tab Content Start -->
                                             <div class="tab-pane fade" id="utilisateur" role="tabpanel">
@@ -463,59 +487,116 @@
                                                 </div>
                                             </div>
                                             <!-- Single Tab Content End -->
+                                             <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="temps" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+                                         <!-- Single Tab Content Start -->
+                                         <div class="tab-pane fade" id="evaluation" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+
+                                        <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="evenement" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+                                          <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="documentaire" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
                                             <!-- Single Tab Content Start -->
                                             <div class="tab-pane fade" id="Communication" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Billing Address</h3>
                 
-                                                    <div class="account-details-form">
-                                                        <form action="#">
-                                                            <div class="row g-5">
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="first-name" placeholder="First Name" type="text">
-                                                                </div>
+                                                    <address>
+                                                        <p><strong>Banani, Dhaka</strong></p>
+                                                        <p>1205 Supper Market<br>
+                                                        Dhaka, Bangladesh</p>
+                                                        <p>Mobile: 01911111111</p>
+                                                    </address>
                 
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="last-name" placeholder="Last Name" type="text">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <input id="display-name" placeholder="Display Name" type="text">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <input id="email-address" placeholder="Email Address" type="email">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <h4>Password change</h4>
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <input id="current-pwd" placeholder="Current Password" type="password">
-                                                                </div>
-                
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="new-pwd" placeholder="New Password" type="password">
-                                                                </div>
-                
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="confirm-pwd" placeholder="Confirm Password" type="password">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <button class="rbt-btn btn-gradient icon-hover">
-                                                                        <span class="btn-text">Save Changes</span>
-                                                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                                    </button>
-                                                                </div>
-                
-                                                            </div>
-                                                        </form>
+                                                    <div class="rbt-link-hover">
+                                                        <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Single Tab Content End -->
+
+                                             <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="finance" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
                                         </div>
                                     </div>
                                     <!-- My Account Tab Content End -->
@@ -536,12 +617,17 @@
                                     <!-- My Account Tab Menu Start -->
                                     <div class="col-lg-3 col-12">
                                         <div class="rbt-my-account-tab-button nav" role="tablist">
-                                            <a href="#profil" data-bs-toggle="tab" class="active" >Mon profil</a>
-                                            <a href="#utilisateur" data-bs-toggle="tab">Enseignant/Etudiant</a>
+                                            <a href="#utilisateur" data-bs-toggle="tab" class="active">Gestion des Utilisateurs</a>
                                             <a href="#inscription" data-bs-toggle="tab">Inscription/Pré-inscription</a>
                                             <a href="#classe" data-bs-toggle="tab">Gestion des classes</a>
                                             <a href="#cours" data-bs-toggle="tab">Gestion des cours</a>
-                                            <a href="#communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#temps" data-bs-toggle="tab">Gestion des temps</a>
+                                            <a href="#evaluation" data-bs-toggle="tab">Gestion des évaluations</a>
+                                            <a href="#evenement" data-bs-toggle="tab">Gestion des evènements</a>
+                                            <a href="#documentaire" data-bs-toggle="tab">Espace documentaire</a>
+                                            <a href="#Communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#finance" data-bs-toggle="tab">Gestion financière</a>
+                                            <a href="#profil" data-bs-toggle="tab"  >Mon profil</a>
                                             <a href="{% url 'logout' %}">Logout</a>
                                         </div>
                                     </div>
@@ -551,9 +637,9 @@
                                     <div class="col-lg-9 col-12">
                                         <div class="tab-content" id="myaccountContent">
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade active show" id="profil" role="tabpanel">
+                                            <div class="tab-pane fade " id="profil" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Modifier mon compte</h3>
                 
                                                     <div class="account-details-form">
                                                         <form action="#">
@@ -605,7 +691,7 @@
                                             <!-- Single Tab Content End -->
                 
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade" id="utilisateur" role="tabpanel">
+                                            <div class="tab-pane fade active show" id="utilisateur" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
                                                     <h3>Orders</h3>
                 
@@ -738,59 +824,116 @@
                                                 </div>
                                             </div>
                                             <!-- Single Tab Content End -->
+                                             <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="temps" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+                                         <!-- Single Tab Content Start -->
+                                         <div class="tab-pane fade" id="evaluation" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+
+                                        <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="evenement" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+                                          <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="documentaire" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
                                             <!-- Single Tab Content Start -->
                                             <div class="tab-pane fade" id="Communication" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Billing Address</h3>
                 
-                                                    <div class="account-details-form">
-                                                        <form action="#">
-                                                            <div class="row g-5">
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="first-name" placeholder="First Name" type="text">
-                                                                </div>
+                                                    <address>
+                                                        <p><strong>Banani, Dhaka</strong></p>
+                                                        <p>1205 Supper Market<br>
+                                                        Dhaka, Bangladesh</p>
+                                                        <p>Mobile: 01911111111</p>
+                                                    </address>
                 
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="last-name" placeholder="Last Name" type="text">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <input id="display-name" placeholder="Display Name" type="text">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <input id="email-address" placeholder="Email Address" type="email">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <h4>Password change</h4>
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <input id="current-pwd" placeholder="Current Password" type="password">
-                                                                </div>
-                
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="new-pwd" placeholder="New Password" type="password">
-                                                                </div>
-                
-                                                                <div class="col-lg-6 col-12">
-                                                                    <input id="confirm-pwd" placeholder="Confirm Password" type="password">
-                                                                </div>
-                
-                                                                <div class="col-12">
-                                                                    <button class="rbt-btn btn-gradient icon-hover">
-                                                                        <span class="btn-text">Save Changes</span>
-                                                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                                    </button>
-                                                                </div>
-                
-                                                            </div>
-                                                        </form>
+                                                    <div class="rbt-link-hover">
+                                                        <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- Single Tab Content End -->
+
+                                             <!-- Single Tab Content Start -->
+                                        <div class="tab-pane fade" id="finance" role="tabpanel">
+                                            <div class="rbt-my-account-inner">
+                                                <h3>Billing Address</h3>
+            
+                                                <address>
+                                                    <p><strong>Banani, Dhaka</strong></p>
+                                                    <p>1205 Supper Market<br>
+                                                    Dhaka, Bangladesh</p>
+                                                    <p>Mobile: 01911111111</p>
+                                                </address>
+            
+                                                <div class="rbt-link-hover">
+                                                    <a href="#" class="d-inline-block"><i class="fa fa-edit mr--5"></i>Edit Address</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
                                         </div>
                                     </div>
                                     <!-- My Account Tab Content End -->
@@ -811,12 +954,13 @@
                                     <!-- My Account Tab Menu Start -->
                                     <div class="col-lg-3 col-12">
                                         <div class="rbt-my-account-tab-button nav" role="tablist">
-                                            <a href="#profil" data-bs-toggle="tab" class="active" >Mon profil</a>
+                                            <a href="#cours" data-bs-toggle="tab" class="active" >Mes cours</a>
                                             <a href="#classe" data-bs-toggle="tab">Mes classes</a>
-                                            <a href="#cours" data-bs-toggle="tab">Mes cours</a>
                                             <a href="#evaluation" data-bs-toggle="tab">Evaluations</a>
                                             <a href="#presence" data-bs-toggle="tab">Absence/présence</a>
+                                            <a href="#documentaire" data-bs-toggle="tab">Espace documentaire</a>
                                             <a href="#communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#profil" data-bs-toggle="tab" >Mon profil</a>
                                             <a href="{% url 'logout' %}">Logout</a>
                                         </div>
                                     </div>
@@ -826,9 +970,9 @@
                                     <div class="col-lg-9 col-12">
                                         <div class="tab-content" id="myaccountContent">
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade active show" id="profil" role="tabpanel">
+                                            <div class="tab-pane fade " id="profil" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Modifier mon compte</h3>
                 
                                                     <div class="account-details-form">
                                                         <form action="#">
@@ -890,7 +1034,7 @@
                                             <!-- Single Tab Content End -->
                 
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade" id="cours" role="tabpanel">
+                                            <div class="tab-pane fade active show" id="cours" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
                                                     <h3>Billing Address</h3>
                 
@@ -1015,6 +1159,16 @@
                                             </div>
                                             <!-- Single Tab Content End -->
 
+                                             <!-- Single Tab Content Start -->
+                                             <div class="tab-pane fade" id="documentaire" role="tabpanel">
+                                                <div class="rbt-my-account-inner">
+                                                    <h3>Payment Method</h3>
+                
+                                                    <p class="rbt-saved-message">You Can't Saved Your Payment Method yet.</p>
+                                                </div>
+                                            </div>
+                                            <!-- Single Tab Content End -->
+
                                             <!-- Single Tab Content Start -->
                                             <div class="tab-pane fade" id="communication" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
@@ -1088,10 +1242,9 @@
                                     <!-- My Account Tab Menu Start -->
                                     <div class="col-lg-3 col-12">
                                         <div class="rbt-my-account-tab-button nav" role="tablist">
-                                            <a href="#profil" data-bs-toggle="tab" class="active" >Mon profil</a>
-                                            <a href="#enfant" data-bs-toggle="tab">Mes enfants</a>
-                                            <a href="#suivi" data-bs-toggle="tab">Suivi de mes enfants</a>
+                                            <a href="#suivi" data-bs-toggle="tab" class="active" >Suivi de mes enfants</a>
                                             <a href="#communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#profil" data-bs-toggle="tab" >Mon profil</a>
                                             <a href="{% url 'logout' %}">Logout</a>
                                         </div>
                                     </div>
@@ -1101,9 +1254,9 @@
                                     <div class="col-lg-9 col-12">
                                         <div class="tab-content" id="myaccountContent">
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade active show" id="profil" role="tabpanel">
+                                            <div class="tab-pane fade " id="profil" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Modifier mon compte</h3>
                 
                                                     <div class="account-details-form">
                                                         <form action="#">
@@ -1155,59 +1308,7 @@
                                             <!-- Single Tab Content End -->
                 
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade" id="enfant" role="tabpanel">
-                                                <div class="rbt-my-account-inner">
-                                                    <h3>Orders</h3>
-                
-                                                    <div class="rbt-my-account-table table-responsive text-center">
-                                                        <table class="table table-bordered">
-                                                            <thead class="thead-light">
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Name</th>
-                                                                    <th>Date</th>
-                                                                    <th>Status</th>
-                                                                    <th>Total</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>Miracle Morning</td>
-                                                                    <td>Janu 22, 2022</td>
-                                                                    <td>Pending</td>
-                                                                    <td>$45</td>
-                                                                    <td>
-                                                                        <a class="rbt-btn btn-gradient btn-sm" href="#">View Details</a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td>Happy Strong</td>
-                                                                    <td>Aug 22, 2022</td>
-                                                                    <td>Approved</td>
-                                                                    <td>$70</td>
-                                                                    <td><a class="rbt-btn btn-gradient btn-sm" href="#">View Details</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>3</td>
-                                                                    <td>Rich Dad Poor Dad</td>
-                                                                    <td>Oct 12, 2022</td>
-                                                                    <td>On Hold</td>
-                                                                    <td>$20</td>
-                                                                    <td><a class="rbt-btn btn-gradient btn-sm" href="#">View Details</a></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Single Tab Content End -->
-                
-                                            <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade" id="suivi" role="tabpanel">
+                                            <div class="tab-pane fade active show" id="suivi" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
                                                     <h3>Downloads</h3>
                 
@@ -1272,11 +1373,12 @@
                                     <!-- My Account Tab Menu Start -->
                                     <div class="col-lg-3 col-12">
                                         <div class="rbt-my-account-tab-button nav" role="tablist">
-                                            <a href="#profil" data-bs-toggle="tab" class="active" >Mon profil</a>
-                                            <a href="#cours" data-bs-toggle="tab">Mes cours</a>
+                                            <a href="#cours" data-bs-toggle="tab" class="active">Mes cours</a>
+                                            <a href="#temps" data-bs-toggle="tab">Emploi du temps</a>
                                             <a href="#evaluation" data-bs-toggle="tab">Mes évaluations</a>
                                             <a href="#document" data-bs-toggle="tab">Mon espace documentaire</a>
                                             <a href="#communication" data-bs-toggle="tab">Communication</a>
+                                            <a href="#profil" data-bs-toggle="tab"  >Mon profil</a>
                                             <a href="{% url 'logout' %}">Logout</a>
                                         </div>
                                     </div>
@@ -1286,9 +1388,9 @@
                                     <div class="col-lg-9 col-12">
                                         <div class="tab-content" id="myaccountContent">
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade active show" id="profil" role="tabpanel">
+                                            <div class="tab-pane fade" id="profil" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Modifier mon compte</h3>
                 
                                                     <div class="account-details-form">
                                                         <form action="#">
@@ -1340,7 +1442,7 @@
                                             <!-- Single Tab Content End -->
                 
                                             <!-- Single Tab Content Start -->
-                                            <div class="tab-pane fade" id="cours" role="tabpanel">
+                                            <div class="tab-pane fade active show" id="cours" role="tabpanel">
                                                 <div class="rbt-my-account-inner">
                                                     <h3>Orders</h3>
                 
@@ -1387,6 +1489,15 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <!-- Single Tab Content End -->
+                                            <!-- Single Tab Content Start -->
+                                            <div class="tab-pane fade" id="temps" role="tabpanel">
+                                                <div class="rbt-my-account-inner">
+                                                    <h3>Payment Method</h3>
+                
+                                                    <p class="rbt-saved-message">You Can't Saved Your Payment Method yet.</p>
                                                 </div>
                                             </div>
                                             <!-- Single Tab Content End -->

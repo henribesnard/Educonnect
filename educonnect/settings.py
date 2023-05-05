@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'gestion_dashbord',
     'bootstrap5',
     'widget_tweaks',
+    'django_extensions',
     
 ]
 AUTH_USER_MODEL = 'gestion_utilisateurs.User'
